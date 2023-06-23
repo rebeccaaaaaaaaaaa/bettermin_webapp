@@ -1,9 +1,10 @@
-'use client'
+"use client";
 import { useState, useContext } from "react";
 import { useMenu } from "../../hooks/useMenu";
 import { WelcomeBar } from "../WelcomeBar";
 import { Modal } from "../Modal";
 import { ModalContext } from "@/contexts/modal";
+import { Navlink } from "../NavLink";
 
 export function Sidebar() {
   const { isSidebarOpen } = useMenu();
@@ -24,18 +25,11 @@ export function Sidebar() {
       >
         <WelcomeBar />
         <nav className="text-gray-400">
-          <a href="/home" className="block p-4 hover:bg-gray-700">
-            Página Inicial
-          </a>
-          <a href="/all" className="block p-4 hover:bg-gray-700">
-            Todas
-          </a>
-          <a href="/favorites" className="block p-4 hover:bg-gray-700">
-            Favoritas
-          </a>
-          <a href="/settings" className="block p-4 hover:bg-gray-700">
-            Configurações
-          </a>
+          <Navlink href="/home" linkName="Página Inicial" />
+          <Navlink href="/all" linkName="Todas" />
+          <Navlink href="/favorites" linkName="Favoritas" />
+          <Navlink href="/settings" linkName="Configuraçõoes" />
+
           <span
             className="block p-4 hover:bg-gray-700 cursor-pointer"
             onClick={() => handleShowModal("logout")}
