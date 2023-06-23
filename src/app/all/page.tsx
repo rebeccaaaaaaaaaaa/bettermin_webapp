@@ -1,8 +1,20 @@
+'use client'
 import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
+import { Modal } from "@/components/Modal";
+import { ModalContext } from "@/contexts/modal";
+import { useContext, useState } from "react";
 import { FiFile, FiHeart, FiXCircle } from "react-icons/fi";
 
 export default function All() {
+  const { showModal } = useContext(ModalContext);
+  const [currentModal, setCurrentModal] = useState("");
+
+  const handleShowModal = (modalId: string) => {
+    setCurrentModal(modalId);
+    showModal(modalId);
+  };
+
   return (
     <>
       <Header />
@@ -24,7 +36,9 @@ export default function All() {
                   <button className="bg-green-500 rounded p-1" title="Editar">
                     <FiFile color="#fff" />
                   </button>
-                  <button className="bg-red-500 rounded p-1" title="Apagar">
+                  <button className="bg-red-500 rounded p-1" title="Apagar" onClick={
+                    () => handleShowModal("delete")
+                  }>
                     <FiXCircle color="#fff" />
                   </button>
                 </div>
@@ -33,6 +47,17 @@ export default function All() {
           </div>
         </div>
       </div>
+      {currentModal === "delete" && (
+        <Modal
+          title="Deseja apagar o registro?"
+          action={() => {}}
+          hide={() => setCurrentModal("")}
+        >
+          <p className="my-4 text-slate-500 text-lg leading-relaxed">
+            Apagar registro? Essa ação não poderá ser desfeita.
+          </p>
+        </Modal>
+      )}
     </>
   );
 }

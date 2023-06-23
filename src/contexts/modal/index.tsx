@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import {
   createContext,
   ReactNode,
@@ -12,22 +12,40 @@ interface ModalProps {
 }
 
 interface ModalContextData {
-  showModal: boolean;
-  setShowModal: (showModal: boolean) => void;
+  modals: string[];
+  showModal: (modalId: string) => void;
+  hideModal: (modalId: string) => void;
+  isModalVisible: (modalId: string) => boolean;
 }
 
 export const ModalContext = createContext({} as ModalContextData);
 
 export function ModalProvider({ children }: ModalProps) {
-  const [showModal, setShowModal] = useState(false);
+  const [modals, setModals] = useState<string[]>([]);
+
+  const showModal = (modalId: string) => {
+    setModals((prevModals) => [...prevModals, modalId]);
+  };
+
+  const hideModal = (modalId: string) => {
+    setModals((prevModals) => prevModals.filter((modal) => modal !== modalId));
+  };
+
+  const isModalVisible = (modalId: string) => {
+    return modals.includes(modalId);
+  };
+
   useEffect(() => {
     console.log("Contexto de Modal criado.");
   }, []);
+
   return (
     <ModalContext.Provider
       value={{
+        modals,
         showModal,
-        setShowModal,
+        hideModal,
+        isModalVisible,
       }}
     >
       {children}
