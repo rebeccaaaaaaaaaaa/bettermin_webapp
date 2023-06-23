@@ -10,7 +10,8 @@ const Editor = dynamic(
   { ssr: false }
 );
 export default function Home() {
-  const { editorState, handleEditorStateChange } = useEditor();
+  const { editorState, handleEditorStateChange, handelSubmit, setTextTitle } =
+    useEditor();
   return (
     <>
       <Header />
@@ -20,6 +21,7 @@ export default function Home() {
           <input
             className="w-full border-2 border-gray-300 p-2 rounded-lg mb-4"
             placeholder="Dê um titulo ao seu relato"
+            onChange={(e) => setTextTitle(e.target.value)}
           />
           <Editor
             editorState={editorState}
@@ -33,7 +35,10 @@ export default function Home() {
               padding: "0 16px",
             }}
           />
-          <button className="mr-4 mt-3 bg-green-600 text-white rounded-full flex items-center gap-1 p-2">
+          <button
+            className="mr-4 mt-3 bg-green-600 text-white rounded-full flex items-center gap-1 p-2"
+            onClick={handelSubmit}
+          >
             Salvar
             <svg
               xmlns="http://www.w3.org/2000/svg"
