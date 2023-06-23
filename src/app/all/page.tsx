@@ -17,6 +17,7 @@ const Editor = dynamic(
 export default function All() {
   const { showModal } = useContext(ModalContext);
   const [currentModal, setCurrentModal] = useState("");
+  const [favorite, setFavorite] = useState(false);
 
   const handleShowModal = (modalId: string) => {
     setCurrentModal(modalId);
@@ -25,6 +26,10 @@ export default function All() {
 
   const handleEditorStateChange = (newEditorState: any) => {
     setEditorState(newEditorState); // Update the editor state
+  };
+
+  const handleFavorite = () => {
+    setFavorite(!favorite);
   };
 
   const [isClient, setIsClient] = useState(false);
@@ -53,7 +58,11 @@ export default function All() {
                   <p>28/10/2022</p>
                 </div>
                 <div className="flex items-center justify-around gap-2">
-                  <button className="bg-blue-500 rounded p-1" title="Favoritar">
+                  <button
+                    className={`bg-primary rounded p-1 ${favorite ? "bg-red-500" : ""}`}
+                    title="Favoritar"
+                    onClick={() => handleFavorite()}
+                  >
                     <FiHeart color="#fff" />
                   </button>
                   <button
