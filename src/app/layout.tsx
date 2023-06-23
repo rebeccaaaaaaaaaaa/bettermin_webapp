@@ -5,6 +5,7 @@ import { MenuProvider } from "../contexts/menu";
 import "./globals.css";
 import { Nunito } from "next/font/google";
 import { ModalProvider } from "@/contexts/modal";
+import { EditorProvider } from "@/contexts/editor";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -22,7 +23,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={nunito.className}>
         <MenuProvider>
-          <ModalProvider>{children}</ModalProvider>
+          <ModalProvider>
+            <EditorProvider>{children}</EditorProvider>
+          </ModalProvider>
         </MenuProvider>
       </body>
     </html>

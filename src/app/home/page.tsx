@@ -1,34 +1,16 @@
 "use client";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useContext, useEffect, useState } from "react";
-import { EditorState } from "draft-js";
 import dynamic from "next/dynamic";
 import { Header } from "../../components/Header";
-import { useMenu } from "../../hooks/useMenu";
 import { Sidebar } from "../../components/Sidebar";
+import { useEditor } from "@/hooks/useEditor";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
 );
 export default function Home() {
-  const { isSidebarOpen } = useMenu();
-
-  const [isClient, setIsClient] = useState(false);
-  const [editorState, setEditorState] = useState(EditorState.createEmpty()); // Initialize the editor state
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null; // Render nothing on the server
-  }
-
-  const handleEditorStateChange = (newEditorState: any) => {
-    setEditorState(newEditorState); // Update the editor state
-  };
-
+  const { editorState, handleEditorStateChange } = useEditor();
   return (
     <>
       <Header />
