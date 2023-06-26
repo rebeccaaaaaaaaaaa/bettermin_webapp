@@ -5,9 +5,11 @@ import { WelcomeBar } from "../WelcomeBar";
 import { Modal } from "../Modal";
 import { ModalContext } from "@/contexts/modal";
 import { Navlink } from "../NavLink";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Sidebar() {
   const { isSidebarOpen } = useMenu();
+  const { handleLogout, userName } = useAuth();
   const { showModal } = useContext(ModalContext);
   const [currentModal, setCurrentModal] = useState("");
 
@@ -23,7 +25,7 @@ export function Sidebar() {
           isSidebarOpen ? "block" : "hidden"
         } transition-all duration-500`}
       >
-        <WelcomeBar />
+        <WelcomeBar user={userName} />
         <nav className="text-gray-400">
           <Navlink href="/home" linkName="Página Inicial" />
           <Navlink href="/all" linkName="Todas" />
@@ -41,7 +43,9 @@ export function Sidebar() {
       {currentModal === "logout" && (
         <Modal
           title="Deseja sair da aplicação?"
-          action={() => console.log("AÇÃO PARA APAGAR UM REGISTRO")}
+          action={() => {
+            handleLogout();
+          }}
           hide={() => setCurrentModal("")}
         >
           <p className="my-4 text-slate-500 text-lg leading-relaxed">

@@ -6,6 +6,7 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 import { ModalProvider } from "@/contexts/modal";
 import { EditorProvider } from "@/contexts/editor";
+import { AuthProvider } from "@/contexts/auth";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
       <body className={nunito.className}>
         <MenuProvider>
           <ModalProvider>
-            <EditorProvider>{children}</EditorProvider>
+            <EditorProvider>
+              <AuthProvider>{children}</AuthProvider>
+            </EditorProvider>
           </ModalProvider>
         </MenuProvider>
       </body>
