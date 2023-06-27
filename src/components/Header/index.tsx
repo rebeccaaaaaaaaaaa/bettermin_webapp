@@ -2,9 +2,12 @@
 import Image from "next/image";
 import { useMenu } from "../../hooks/useMenu";
 import Link from "next/link";
+import { WelcomeBar } from "../WelcomeBar";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Header() {
   const { isSidebarOpen, toggleSidebar } = useMenu();
+  const { userName } = useAuth();
   return (
     <header className="w-full bg-primary text-white p-4 flex items-center justify-between">
       <Link href="/home">
@@ -17,6 +20,7 @@ export function Header() {
         />
         <h1 className="text-lg font-bold inline-block ml-2">Better Mind</h1>
       </Link>
+      <WelcomeBar user={userName} />
       <div className="flex items-center gap-5">
         <button className="mr-4 bg-slate-700 text-white rounded-full flex items-center gap-2 p-2">
           <Link href="/home">Adicionar</Link>

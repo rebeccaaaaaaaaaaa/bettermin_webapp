@@ -25,7 +25,6 @@ export function Sidebar() {
           isSidebarOpen ? "block" : "hidden"
         } transition-all duration-500`}
       >
-        <WelcomeBar user={userName} />
         <nav className="text-gray-400">
           <Navlink href="/home" linkName="Página Inicial" />
           <Navlink href="/all" linkName="Todas" />

@@ -37,8 +37,7 @@ export function AuthProvider({ children }: AuthProps) {
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     const AuthURL = "http://localhost:1337/api/auth/local";
     axios
       .post(AuthURL, {
@@ -46,10 +45,11 @@ export function AuthProvider({ children }: AuthProps) {
         password: password,
       })
       .then((response) => {
-        console.log("User profile", response.data.user);
-        console.log("User token", response.data.jwt);
         localStorage.setItem("token", response.data.jwt);
         localStorage.setItem("user", response.data.user.username);
+        setUserName(response.data.user.username);
+        setIsLogged(true);
+        window.location.reload();
         window.history.pushState({}, "", "/home");
       })
       .catch((error) => {
@@ -59,16 +59,15 @@ export function AuthProvider({ children }: AuthProps) {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.history.pushState({}, "", "/");
     window.location.reload();
+    window.history.pushState({}, "", "/");
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user = localStorage.getItem("user");
     if (token) {
       setIsLogged(true);
-      setUserName(user);
+      setUserName(localStorage.getItem("user"));
     }
   }, []);
 
