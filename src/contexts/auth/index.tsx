@@ -39,7 +39,7 @@ export function AuthProvider({ children }: AuthProps) {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const AuthURL = "http://localhost:1337/auth/local";
+    const AuthURL = "http://localhost:1337/api/auth/local";
     axios
       .post(AuthURL, {
         identifier: user,
@@ -50,6 +50,7 @@ export function AuthProvider({ children }: AuthProps) {
         console.log("User token", response.data.jwt);
         localStorage.setItem("token", response.data.jwt);
         localStorage.setItem("user", response.data.user.username);
+        window.history.pushState({}, "", "/home");
       })
       .catch((error) => {
         console.log("An error occurred:", error.response);

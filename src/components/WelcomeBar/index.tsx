@@ -5,7 +5,7 @@ interface WelcomeBarProps {
 export function WelcomeBar({ user }: WelcomeBarProps) {
   return (
     <div className="p-4">
-      <h1 className="text-lg font-bold">{user}</h1>
+      <h1 className="text-lg font-bold">Seja bem vindo(a), {user}</h1>
     </div>
   );
 }
