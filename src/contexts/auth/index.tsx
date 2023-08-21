@@ -18,7 +18,7 @@ interface AuthContextData {
   password: string;
   setUser: (user: string) => void;
   setPassword: (password: string) => void;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleSubmit: () => void;
   handleLogout: () => void;
   setShowErrorAlert: (showErrorAlert: boolean) => void;
   showErrorAlert: boolean;
@@ -45,12 +45,15 @@ export function AuthProvider({ children }: AuthProps) {
         password: password,
       })
       .then((response) => {
-        localStorage.setItem("token", response.data.jwt);
-        localStorage.setItem("user", response.data.user.username);
-        setUserName(response.data.user.username);
-        setIsLogged(true);
-        window.location.reload();
-        window.history.pushState({}, "", "/home");
+        if (response.status === 200) {
+          localStorage.setItem("token", response.data.jwt);
+          localStorage.setItem("user", response.data.user.username);
+          setUserName(response.data.user.username);
+          setIsLogged(true);
+          window.location.replace("/home");
+        } else {
+          console.log("An error occurred:");
+        }
       })
       .catch((error) => {
         console.log("An error occurred:", error.response);

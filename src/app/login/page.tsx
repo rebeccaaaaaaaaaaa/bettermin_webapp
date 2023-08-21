@@ -17,7 +17,7 @@ export default function Login() {
         <p className="text-red-500 text-center">Usuário ou senha inválidos</p>
       )}
       <div className="flex h-[100vh] items-center justify-end pr-96">
-        <form className="flex flex-col bg-[#ffffff6e] p-8 rounded-lg shadow-lg w-96" onSubmit={handleSubmit}>
+        <div className="flex flex-col bg-[#ffffff6e] p-8 rounded-lg shadow-lg w-96">
           <div className="flex flex-col items-center justify-center">
             <Image src={Logo} alt="Logo Better Mind" width={100} />
             <h1 className="text-3xl font-bold mb-4 text-primary">
@@ -41,10 +41,11 @@ export default function Login() {
           <button
             className="bg-primary text-white py-2 rounded-md hover:opacity-[0.9] text-center"
             type="submit"
+            onClick={handleSubmit}
           >
-            <Link href="/home">Entrar</Link>
+            Entrar
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
