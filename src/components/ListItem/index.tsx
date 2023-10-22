@@ -37,10 +37,10 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
 
   return (
     <>
-      <li className="flex justify-between items-center bg-gray-200 p-5 mb-5 rounded-md cursor-pointer">
+      <li className="flex justify-between items-center bg-gray-200 p-5 mb-5 rounded-md cursor-pointer hover:bg-gray-300 transition-all">
         <div>
           <h1 className="text-lg"> {title} </h1>
-          <p>{createdAt}</p>
+          <p>{new Date(createdAt).toLocaleDateString()}</p>
         </div>
         <div className="flex items-center justify-around gap-2">
         <button
@@ -50,7 +50,7 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
           title="Favoritar"
           onClick={onFavoriteClick} // Chame a função de propriedade
         >
-          {itemFavorite ? "Desfavoritar" : "Favoritar"}
+          
           <FiHeart color="#fff" />
         </button>
           <button
@@ -58,7 +58,6 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
             title="Editar"
             onClick={() => handleShowModal("edit")}
           >
-            Editar
             <FiFile color="#fff" />
           </button>
           <button
@@ -66,7 +65,6 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
             title="Apagar"
             onClick={() => handleShowModal("delete")} // Chame a função 'onDelete' e passe o 'id'
           >
-            Apagar
             <FiXCircle color="#fff" />
           </button>
         </div>

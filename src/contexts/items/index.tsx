@@ -31,6 +31,7 @@ export const ItemsContext = createContext<ItemsContextData>(
 
 export function ItemsProvider({ children }: ItemsProps) {
   const [showAllItems, setShowAllItems] = useState<Item[]>([]);
+  
 
   async function loadAllItems() {
     try {
@@ -49,6 +50,10 @@ export function ItemsProvider({ children }: ItemsProps) {
     } catch (error) {
       console.error('Error loading items:', error);
     }
+  }
+
+  async function insertItem(){
+  
   }
 
   useEffect(() => {
