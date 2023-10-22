@@ -1,12 +1,10 @@
-import { useRouter } from "next/navigation";
-import { Header } from "../components/Header";
-import { Sidebar } from "../components/Sidebar";
 import { MenuProvider } from "../contexts/menu";
 import "./globals.css";
 import { Nunito } from "next/font/google";
 import { ModalProvider } from "@/contexts/modal";
 import { EditorProvider } from "@/contexts/editor";
 import { AuthProvider } from "@/contexts/auth";
+import { ItemsProvider } from "@/contexts/items";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -26,7 +24,9 @@ export default function RootLayout({
         <MenuProvider>
           <ModalProvider>
             <EditorProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <ItemsProvider>
+                <AuthProvider>{children}</AuthProvider>
+              </ItemsProvider>
             </EditorProvider>
           </ModalProvider>
         </MenuProvider>

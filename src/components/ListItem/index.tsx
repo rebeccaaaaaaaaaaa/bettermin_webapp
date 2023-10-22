@@ -7,12 +7,17 @@ import { Modal } from "../Modal";
 import { useEditor } from "@/hooks/useEditor";
 import dynamic from "next/dynamic";
 
+interface ListItemProps {
+  title: string;
+  createdAt: string;
+}
+
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
 );
 
-export function ListItem() {
+export function ListItem({title, createdAt} : ListItemProps) {
   const [favorite, setFavorite] = useState(false);
   const handleFavorite = () => {
     setFavorite(!favorite);
@@ -32,8 +37,8 @@ export function ListItem() {
     <>
       <li className="flex justify-between items-center bg-gray-200 p-5 rounded-md cursor-pointer ">
         <div>
-          <h1 className="text-lg"> Mais um relato </h1>
-          <p>28/10/2022</p>
+          <h1 className="text-lg"> {title} </h1>
+          <p>{createdAt}</p>
         </div>
         <div className="flex items-center justify-around gap-2">
           <button
