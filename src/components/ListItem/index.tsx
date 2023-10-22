@@ -6,23 +6,25 @@ import { FiHeart, FiFile, FiXCircle } from "react-icons/fi";
 import { Modal } from "../Modal";
 import { useEditor } from "@/hooks/useEditor";
 import dynamic from "next/dynamic";
+import { useItems } from "@/hooks/useItems";
 
 interface ListItemProps {
+  id: number;
   title: string;
   createdAt: string;
+  favorite: boolean;
+  onFavoriteClick: () => void; // Adicione a função como uma prop
+  onDelete: (id: number) => void
 }
+
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
 );
 
-export function ListItem({title, createdAt} : ListItemProps) {
-  const [favorite, setFavorite] = useState(false);
-  const handleFavorite = () => {
-    setFavorite(!favorite);
-  };
-
+export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : ListItemProps) {  
+  const [itemFavorite, setItemFavorite] = useState(false);
   const { showModal } = useModal();
   const [currentModal, setCurrentModal] = useState("");
 
@@ -35,22 +37,22 @@ export function ListItem({title, createdAt} : ListItemProps) {
 
   return (
     <>
-      <li className="flex justify-between items-center bg-gray-200 p-5 rounded-md cursor-pointer ">
+      <li className="flex justify-between items-center bg-gray-200 p-5 mb-5 rounded-md cursor-pointer">
         <div>
           <h1 className="text-lg"> {title} </h1>
           <p>{createdAt}</p>
         </div>
         <div className="flex items-center justify-around gap-2">
-          <button
-            className={`bg-primary rounded p-1 flex items-center justify-around gap-2 text-white ${
-              favorite ? "bg-red-900" : ""
-            }`}
-            title="Favoritar"
-            onClick={() => handleFavorite()}
-          >
-            {favorite ? "Desfavoritar" : "Favoritar"}
-            <FiHeart color="#fff" />
-          </button>
+        <button
+          className={`bg-primary rounded p-1 flex items-center justify-around gap-2 text-white ${
+            itemFavorite ? "bg-red-900" : ""
+          }`}
+          title="Favoritar"
+          onClick={onFavoriteClick} // Chame a função de propriedade
+        >
+          {itemFavorite ? "Desfavoritar" : "Favoritar"}
+          <FiHeart color="#fff" />
+        </button>
           <button
             className="bg-green-500 rounded p-1 flex items-center justify-around gap-2 text-white"
             title="Editar"
@@ -62,7 +64,7 @@ export function ListItem({title, createdAt} : ListItemProps) {
           <button
             className="bg-red-500 rounded p-1 flex items-center justify-around gap-2 text-white"
             title="Apagar"
-            onClick={() => handleShowModal("delete")}
+            onClick={() => onDelete(id)} // Chame a função 'onDelete' e passe o 'id'
           >
             Apagar
             <FiXCircle color="#fff" />
@@ -72,7 +74,9 @@ export function ListItem({title, createdAt} : ListItemProps) {
       {currentModal === "delete" && (
         <Modal
           title="Deseja apagar o registro?"
-          action={() => {}}
+          action={() => {
+            // nessa action preciso permitir passar a função apra deletar mas que o id seja colocado por outro componente
+          }}
           hide={() => setCurrentModal("")}
         >
           <p className="my-4 text-slate-500 text-lg leading-relaxed">

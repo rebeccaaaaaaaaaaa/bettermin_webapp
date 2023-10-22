@@ -21,6 +21,16 @@ export default function All() {
                   key={index} // Certifique-se de adicionar uma chave única para cada elemento
                   title={item.attributes.title} // Passe o título do item
                   createdAt={item.attributes.createdAt} // Passe a data de criação do item
+                  favorite={item.attributes.favorite}
+                  id={item.id}
+                  onFavoriteClick={() => {
+                    // Lógica a ser executada quando o botão "Favoritar" for clicado
+                    console.log("Favoritar clicado com o id " + item.id);
+                  }}
+                  onDelete={(itemId) => {
+                    // Chame a função onDelete e passe o ID do item
+                    console.log(`Excluir item com ID ${item.id}`);
+                  }}
                 />
               ))}
             </ul>
