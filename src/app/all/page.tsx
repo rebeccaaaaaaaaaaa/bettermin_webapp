@@ -5,7 +5,7 @@ import { Sidebar } from "../../components/Sidebar";
 import { ListItem } from "@/components/ListItem";
 
 export default function All() {
-  const { showAllItems } = useItems();
+  const { showAllItems, deleteItem } = useItems();
 
   return (
     <>
@@ -27,9 +27,8 @@ export default function All() {
                     // Lógica a ser executada quando o botão "Favoritar" for clicado
                     console.log("Favoritar clicado com o id " + item.id);
                   }}
-                  onDelete={(itemId) => {
-                    // Chame a função onDelete e passe o ID do item
-                    console.log(`Excluir item com ID ${item.id}`);
+                  onDelete={() => {
+                    deleteItem(item.id)
                   }}
                 />
               ))}

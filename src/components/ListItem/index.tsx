@@ -64,7 +64,7 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
           <button
             className="bg-red-500 rounded p-1 flex items-center justify-around gap-2 text-white"
             title="Apagar"
-            onClick={() => onDelete(id)} // Chame a função 'onDelete' e passe o 'id'
+            onClick={() => handleShowModal("delete")} // Chame a função 'onDelete' e passe o 'id'
           >
             Apagar
             <FiXCircle color="#fff" />
@@ -75,7 +75,7 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
         <Modal
           title="Deseja apagar o registro?"
           action={() => {
-            // nessa action preciso permitir passar a função apra deletar mas que o id seja colocado por outro componente
+            onDelete(id)
           }}
           hide={() => setCurrentModal("")}
         >

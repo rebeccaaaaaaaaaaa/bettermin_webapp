@@ -44,6 +44,7 @@ export function ItemsProvider({ children }: ItemsProps) {
   async function deleteItem(id: number){
     try {
       const response = await axios.delete(`http://localhost:1337/api/items/${id}`);
+      setShowAllItems((prevItems) => prevItems.filter((item) => item.id !== id));
       console.log(response.data.data);
     } catch (error) {
       console.error('Error loading items:', error);
