@@ -6,10 +6,12 @@ import { Modal } from "../Modal";
 import { ModalContext } from "@/contexts/modal";
 import { Navlink } from "../NavLink";
 import { useAuth } from "@/hooks/useAuth";
+import { useItems } from "@/hooks/useItems";
 
 export function Sidebar() {
   const { isSidebarOpen } = useMenu();
-  const { handleLogout, userName } = useAuth();
+  const { loadAllItems, loadAllItemsFavorited } = useItems()
+  const { handleLogout } = useAuth();
   const { showModal } = useContext(ModalContext);
   const [currentModal, setCurrentModal] = useState("");
 
@@ -27,8 +29,12 @@ export function Sidebar() {
       >
         <nav className="text-gray-400">
           <Navlink href="/home" linkName="Página Inicial" />
-          <Navlink href="/all" linkName="Todas" />
-          <Navlink href="/favorites" linkName="Favoritas" />
+          <div onClick={() => { loadAllItems() }}>
+            <Navlink href="/all" linkName="Todas"/>
+          </div>
+          <div onClick={() => { loadAllItemsFavorited() }}>
+            <Navlink href="/favorites" linkName="Favoritos"/>
+          </div>
           <Navlink href="/settings" linkName="Configuraçõoes" />
 
           <span
