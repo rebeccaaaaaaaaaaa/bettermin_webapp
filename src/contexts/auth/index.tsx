@@ -70,8 +70,8 @@
 
     const handleLogout = () => {
       localStorage.removeItem("token");
-      window.location.reload();
-      window.history.pushState({}, "", "/");
+      localStorage.removeItem("user");
+      window.location.href = "/";
     };
 
     useEffect(() => {
