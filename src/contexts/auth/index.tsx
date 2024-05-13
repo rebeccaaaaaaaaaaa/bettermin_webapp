@@ -79,6 +79,8 @@
       if (token) {
         setIsLogged(true);
         setUserName(localStorage.getItem("user"));
+      } if (!token) {
+        setIsLogged(false);
       }
     }, []);
 

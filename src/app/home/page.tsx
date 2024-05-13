@@ -5,7 +5,8 @@ import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { useEditor } from "@/hooks/useEditor";
 import { useAuth } from "@/hooks/useAuth";
-
+import Link from "next/link";
+import { LoggedWarning } from "@/components/LoggedWarning";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -17,7 +18,7 @@ export default function Home() {
   const { isLogged } = useAuth();
   return (
     <>
-      {isLogged && (
+      {isLogged ? (
         <>
           <Header />
           <div className="flex h-[100vh] w-[100vw]">
@@ -63,6 +64,8 @@ export default function Home() {
             </div>
           </div>
         </>
+      ) : (
+        <LoggedWarning />
       )}
     </>
   );
