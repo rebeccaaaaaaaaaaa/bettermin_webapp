@@ -10,6 +10,8 @@ import {
 import { ContentState, convertToRaw, EditorState } from "draft-js";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
+import axios from "axios";
+import { baseUrl } from "@/services/baseUrl";
 
 interface EditorProps {
   children: ReactNode;
@@ -21,24 +23,40 @@ interface EditorContextData {
   setEditorState: (newEditorState: any) => void;
   textTitle: string;
   setTextTitle: (newTextTitle: string) => void;
-  handelSubmit: () => void;
+  handleSubmit: () => void;
 }
 
 export const EditorContext = createContext({} as EditorContextData);
 
 export function EditorProvider({ children }: EditorProps) {
   const [textTitle, setTextTitle] = useState("");
+  const [favorite, setFavorite] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   const handleEditorStateChange = (newEditorState: any) => {
     setEditorState(newEditorState);
   };
 
-  const handelSubmit = () => {
+  const handleSubmit = () => {
+    console.log("Salvando...");
     const contentHtml = draftToHtml(
       convertToRaw(editorState.getCurrentContent())
     );
-    console.log("Titulo: ", textTitle, "Conteudo: ", contentHtml);
+    const url = baseUrl + "api/items";
+    const data = {
+      title: textTitle,
+      content: contentHtml,
+      favorite: favorite,
+    };
+    try {
+      axios.post(url, {
+        data: data
+      }).then((response) => {
+        console.log(response);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -52,7 +70,7 @@ export function EditorProvider({ children }: EditorProps) {
         setEditorState,
         textTitle,
         setTextTitle,
-        handelSubmit,
+        handleSubmit,
       }}
     >
       {children}

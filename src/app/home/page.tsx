@@ -5,7 +5,6 @@ import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { useEditor } from "@/hooks/useEditor";
 import { useAuth } from "@/hooks/useAuth";
-import Link from "next/link";
 import { LoggedWarning } from "@/components/LoggedWarning";
 
 const Editor = dynamic(
@@ -13,7 +12,7 @@ const Editor = dynamic(
   { ssr: false }
 );
 export default function Home() {
-  const { editorState, handleEditorStateChange, handelSubmit, setTextTitle } =
+  const { editorState, handleEditorStateChange, handleSubmit, setTextTitle } =
     useEditor();
   const { isLogged } = useAuth();
   return (
@@ -43,7 +42,7 @@ export default function Home() {
               />
               <button
                 className="mr-4 mt-3 bg-green-600 text-white rounded-full flex items-center gap-1 p-2"
-                onClick={handelSubmit}
+                onClick={() => handleSubmit()}
               >
                 Salvar
                 <svg
