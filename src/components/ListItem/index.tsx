@@ -23,14 +23,19 @@ const Editor = dynamic(
   { ssr: false }
 );
 
-export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : ListItemProps) {  
-  const [itemFavorite, setItemFavorite] = useState(false);
+export function ListItem({title, createdAt, onFavoriteClick, onDelete, id, favorite} : ListItemProps) {  
+  const [itemFavorite, setItemFavorite] = useState(favorite);
   const { showModal } = useModal();
   const [currentModal, setCurrentModal] = useState("");
 
   const handleShowModal = (modalId: string) => {
     setCurrentModal(modalId);
     showModal(modalId);
+  };
+
+  const handleFavoriteClick = () => {
+    setItemFavorite(!itemFavorite); // Inverta o estado de favorito do item
+    onFavoriteClick(); // Chame a função de clique em favorito para atualizar o estado no componente pai
   };
 
   const { editorState, handleEditorStateChange, setEditorState } = useEditor();
@@ -44,15 +49,14 @@ export function ListItem({title, createdAt, onFavoriteClick, onDelete, id} : Lis
         </div>
         <div className="flex items-center justify-around gap-2">
         <button
-          className={`bg-primary rounded p-1 flex items-center justify-around gap-2 text-white ${
-            itemFavorite ? "bg-red-900" : ""
-          }`}
-          title="Favoritar"
-          onClick={onFavoriteClick} // Chame a função de propriedade
-        >
-          
-          <FiHeart color="#fff" />
-        </button>
+            className={`bg-primary rounded p-1 flex items-center justify-around gap-2 text-white ${
+              itemFavorite ? "bg-red-900" : ""
+            }`}
+            title="Favoritar"
+            onClick={handleFavoriteClick} // Use a função de clique em favorito
+          >
+            <FiHeart color="#fff" />
+          </button>
           <button
             className="bg-green-500 rounded p-1 flex items-center justify-around gap-2 text-white"
             title="Editar"

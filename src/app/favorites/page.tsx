@@ -16,21 +16,22 @@ export default function Favorites() {
           <h1 className="font-bold text-2xl mb-3">Favoritos</h1>
           <div>
           <ul>
-              {showAllItemsFavorited.map((item, index) => (
-                <ListItem
-                  key={index}
-                  title={item.attributes.title}
-                  createdAt={item.attributes.createdAt}
-                  favorite={item.attributes.favorite}
-                  id={item.id}
-                  onFavoriteClick={() => {
-                    console.log("Favoritar clicado com o id " + item.id);
-                  }}
-                  onDelete={() => {
-                    deleteItem(item.id)
-                  }}
-                />
-              ))}
+             {showAllItemsFavorited.map((item, index) => (
+              <ListItem
+                key={index}
+                title={item.attributes.title}
+                createdAt={item.attributes.createdAt}
+                favorite={item.attributes.favorite}
+                id={item.id}
+                onFavoriteClick={() => {
+                  console.log("Favoritar clicado com o id " + item.id);
+                }}
+                onDelete={() => {
+                  deleteItem(item.id);
+                }}
+              />
+            ))}
+
             </ul>
           </div>
         </div>
