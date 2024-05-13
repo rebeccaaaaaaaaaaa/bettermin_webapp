@@ -18,7 +18,7 @@ export default function Home() {
   const { isLogged } = useAuth();
   return (
     <>
-      {isLogged ? (
+      {isLogged && (
         <>
           <Header />
           <div className="flex h-[100vh] w-[100vw]">
@@ -64,8 +64,6 @@ export default function Home() {
             </div>
           </div>
         </>
-      ) : (
-        <LoggedWarning />
       )}
     </>
   );
