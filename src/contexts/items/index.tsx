@@ -80,5 +80,11 @@ export function ItemsProvider({ children }: ItemsProps) {
 
   async function insertItem(){}
 
+  useEffect(() => {
+    loadAllItems();
+    loadAllItemsFavorited();
+  }
+  , []);
+
   return <ItemsContext.Provider value={{ showAllItems, setShowAllItems, deleteItem, loadAllItems, loadAllItemsFavorited, setShowAllItemsFavorited, showAllItemsFavorited }}>{children}</ItemsContext.Provider>;
 }

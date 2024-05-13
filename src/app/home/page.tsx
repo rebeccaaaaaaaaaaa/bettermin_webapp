@@ -5,8 +5,7 @@ import { Header } from "../../components/Header";
 import { Sidebar } from "../../components/Sidebar";
 import { useEditor } from "@/hooks/useEditor";
 import { useAuth } from "@/hooks/useAuth";
-import Link from "next/link";
-import { LoggedWarning } from "@/components/LoggedWarning";
+
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
