@@ -47,7 +47,7 @@ export function ItemsProvider({ children }: ItemsProps) {
         },
       });
       console.log(response.data.data);
-      setShowAllItems(response.data.data);
+      setShowAllItems(response.data.data = response.data.data.filter((item: Item) => item.attributes.favorite === false));
     } catch (error) {
       console.error('Error fetching item list:', error);
     }

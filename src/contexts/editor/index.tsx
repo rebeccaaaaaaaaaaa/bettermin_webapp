@@ -33,6 +33,12 @@ export function EditorProvider({ children }: EditorProps) {
   const [favorite, setFavorite] = useState(false);
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
+  const resetState = () => {
+    setTextTitle("");
+    setEditorState(EditorState.createEmpty());
+    setFavorite(false);
+  }
+
   const handleEditorStateChange = (newEditorState: any) => {
     setEditorState(newEditorState);
   };
@@ -52,7 +58,12 @@ export function EditorProvider({ children }: EditorProps) {
       axios.post(url, {
         data: data
       }).then((response) => {
-        console.log(response);
+        if (response.status === 200) {
+          resetState();
+          window.location.reload()
+        } else {
+          console.log("Erro ao salvar item.");
+        }
       });
     } catch (error) {
       console.log(error);
