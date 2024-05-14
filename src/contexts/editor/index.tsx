@@ -70,9 +70,6 @@ export function EditorProvider({ children }: EditorProps) {
     }
   };
 
-  useEffect(() => {
-    console.log("Contexto de Editor criado.");
-  }, []);
   return (
     <EditorContext.Provider
       value={{

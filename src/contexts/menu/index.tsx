@@ -23,9 +23,7 @@ export function MenuProvider({ children }: MenuProps) {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
-  useEffect(() => {
-    console.log("Contexto de menu criado.");
-  }, []);
+
   return (
     <MenuContext.Provider
       value={{

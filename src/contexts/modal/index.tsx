@@ -35,10 +35,6 @@ export function ModalProvider({ children }: ModalProps) {
     return modals.includes(modalId);
   };
 
-  useEffect(() => {
-    console.log("Contexto de Modal criado.");
-  }, []);
-
   return (
     <ModalContext.Provider
       value={{
