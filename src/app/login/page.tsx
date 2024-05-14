@@ -47,8 +47,7 @@ export default function Login() {
             <button
               type="button"
               onClick={handleShowPassword}
-              // deixar o botão de mostrar senha dentro do input
-              className="text-primary absolute ml-[-2rem] top-[58.5%] "
+              className="text-primary absolute ml-[-2rem] top-[59.8%] "
             >
               {showPassword ? <FiEyeOff /> : <FiEye />}
             </button>
